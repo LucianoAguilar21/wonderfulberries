@@ -21,7 +21,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('clients.create');
     }
 
     /**
@@ -29,7 +29,13 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:clients,name'
+        ]);
+
+        Client::create($validated);
+
+        return redirect()->route('admin.clients.index')->with('success', 'Cliente creado con éxito');
     }
 
     /**
