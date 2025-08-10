@@ -12,7 +12,7 @@ class VarietyController extends Controller
      */
     public function index()
     {
-        //
+        return view('varieties.index')->with(['varieties'=>Variety::all()]);
     }
 
     /**
@@ -20,7 +20,7 @@ class VarietyController extends Controller
      */
     public function create()
     {
-        //
+        return view('varieties.create');
     }
 
     /**
@@ -28,7 +28,12 @@ class VarietyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:varieties,name'
+        ]);
+
+        Variety::create($validated);
+        return redirect()->route('admin.varieties.index')->with('success', 'Variedad creada con éxito');
     }
 
     /**
@@ -36,7 +41,7 @@ class VarietyController extends Controller
      */
     public function show(Variety $variety)
     {
-        //
+        return view('varieties.show',compact('variety'));
     }
 
     /**
@@ -44,7 +49,7 @@ class VarietyController extends Controller
      */
     public function edit(Variety $variety)
     {
-        //
+        return view('varieties.edit',compact('variety'));
     }
 
     /**
@@ -52,7 +57,12 @@ class VarietyController extends Controller
      */
     public function update(Request $request, Variety $variety)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:varieties,name,'.$variety->id
+        ]);
+
+        $variety->update($validated);
+        return redirect()->route('admin.varieties.index')->with('success', 'Variedad actualizada con éxito');
     }
 
     /**

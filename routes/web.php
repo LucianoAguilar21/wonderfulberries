@@ -4,6 +4,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PalletController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VarietyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -44,6 +45,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/clients', [ClientController::class, 'store'])->name('admin.clients.store');
     Route::put('/admin/clients/update/{client}', [ClientController::class, 'update'])->name('admin.clients.update');
     Route::delete('/admin/clients/delete/{client}', [ClientController::class, 'destroy'])->name('admin.clients.destroy');
+
+
+    Route::get('admin/varieties',[VarietyController::class,'index'])->name('admin.varieties.index');
+    Route::get('admin/varieties/show/{variety}',[VarietyController::class,'show'])->name('admin.varieties.show');
+    Route::get('admin/varieties/create',[VarietyController::class,'create'])->name('admin.varieties.create');
+    Route::get('admin/varieties/edit/{variety}',[VarietyController::class,'edit'])->name('admin.varieties.edit');
+    Route::post('admin/varieties',[VarietyController::class,'store'])->name('admin.varieties.store');
+    Route::put('admin/varieties/update/{variety}',[VarietyController::class,'update'])->name('admin.varieties.update');
+    Route::delete('admin/varieties/delete/{variety',[VarietyController::class,'destroy'])->name('admin.varieties.destroy');
 });
 
 require __DIR__.'/auth.php';
