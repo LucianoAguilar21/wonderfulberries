@@ -46,9 +46,9 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $clients = Client::all(); // Assuming you have a Client model
-        $destinations = Destination::all(); // Assuming you have a Destination model
-        $exporters = Exporter::all(); // Assuming you have an Exporter model
+        $clients = Client::whereNull('deleted_at')->get();
+        $destinations = Destination::all(); //
+        $exporters = Exporter::all(); //
         return view('orders.create',
             compact([
                 'clients' ,

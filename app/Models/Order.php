@@ -35,7 +35,7 @@ class Order extends Model
 
     function client() : BelongsTo
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Client::class)->withTrashed();
     }
 
     function destination() : BelongsTo
@@ -48,7 +48,7 @@ class Order extends Model
         return $this->hasMany(Pallet::class);
     }
 
-    function exporter() : BelongsTo 
+    function exporter() : BelongsTo
     {
         return $this->belongsTo(Exporter::class);
     }

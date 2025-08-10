@@ -36,10 +36,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders/{order}/copy-info', [OrderController::class, 'copyInfo'])->name('orders.copyInfo');
 
     Route::view('admin','admin.index')->name('admin.index');
+
     Route::get('/admin/clients', [ClientController::class, 'index'])->name('admin.clients.index');
     Route::get('/admin/clients/show/{client}', [ClientController::class, 'show'])->name('admin.clients.show');
     Route::get('/admin/clients/create', [ClientController::class, 'create'])->name('admin.clients.create');
+    Route::get('/admin/clients/edit/{client}', [ClientController::class, 'edit'])->name('admin.clients.edit');
     Route::post('/admin/clients', [ClientController::class, 'store'])->name('admin.clients.store');
+    Route::put('/admin/clients/update/{client}', [ClientController::class, 'update'])->name('admin.clients.update');
+    Route::delete('/admin/clients/delete/{client}', [ClientController::class, 'destroy'])->name('admin.clients.destroy');
 });
 
 require __DIR__.'/auth.php';

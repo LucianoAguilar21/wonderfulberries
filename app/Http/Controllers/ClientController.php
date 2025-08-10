@@ -12,7 +12,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::all();
+        $clients = Client::whereNull('deleted_at')->get();
         return view('clients.index')->with(['clients'=>$clients]);
     }
 
@@ -43,7 +43,7 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        //
+         return view('clients.show', compact('client'));
     }
 
     /**
@@ -51,7 +51,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return view('clients.edit', compact('client'));
     }
 
     /**
@@ -59,7 +59,13 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+         $request->validate([
+        'name' => 'required|string|max:255|unique:clients,name,' . $client->id,
+        ]);
+
+        $client->update($request->only('name'));
+
+        return redirect()->route('admin.clients.index')->with('success', 'Cliente actualizado correctamente.');
     }
 
     /**
@@ -67,6 +73,8 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+       $client->delete();
+
+        return redirect()->route('admin.clients.index')->with('success', 'Cliente eliminado correctamente.');
     }
 }
