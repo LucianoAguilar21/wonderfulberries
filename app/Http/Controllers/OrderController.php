@@ -99,7 +99,7 @@ class OrderController extends Controller
     {
      // Fetch the order by ID
         // Gate::authorize('viewAny',Order::class);
-        return view('orders.show')->with(['order'=>$order, 'fields'=> Field::all(), 'varieties'=> Variety::all(),  'pallets' => $order->pallets]); // Return the view for showing an order
+        return view('orders.show')->with(['order'=>$order, 'fields'=> Field::all(), 'varieties'=> Variety::all()->whereNull('deleted_at'),  'pallets' => $order->pallets]); // Return the view for showing an order
     }
 
     /**

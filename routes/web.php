@@ -53,7 +53,9 @@ Route::middleware('auth')->group(function () {
     Route::get('admin/varieties/edit/{variety}',[VarietyController::class,'edit'])->name('admin.varieties.edit');
     Route::post('admin/varieties',[VarietyController::class,'store'])->name('admin.varieties.store');
     Route::put('admin/varieties/update/{variety}',[VarietyController::class,'update'])->name('admin.varieties.update');
-    Route::delete('admin/varieties/delete/{variety',[VarietyController::class,'destroy'])->name('admin.varieties.destroy');
+    Route::delete('admin/varieties/delete/{variety}',[VarietyController::class,'destroy'])->name('admin.varieties.destroy');
+
+    Route::get('admin/fields/create',[VarietyController::class,'create'])->name('admin.fields.create');
 });
 
 require __DIR__.'/auth.php';

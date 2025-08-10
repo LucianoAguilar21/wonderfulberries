@@ -24,11 +24,11 @@ class PalletInfo extends Model
 
     public function field()
     {
-        return $this->belongsTo(Field::class);
+        return $this->belongsTo(Field::class)->withTrashed();
     }
 
     public function variety()
     {
-        return $this->belongsTo(Variety::class);
+        return $this->belongsTo(Variety::class)->withTrashed();
     }
 }

@@ -12,7 +12,7 @@ class VarietyController extends Controller
      */
     public function index()
     {
-        return view('varieties.index')->with(['varieties'=>Variety::all()]);
+        return view('varieties.index')->with(['varieties'=>Variety::whereNull('deleted_at')->get()]);
     }
 
     /**
@@ -70,6 +70,8 @@ class VarietyController extends Controller
      */
     public function destroy(Variety $variety)
     {
-        //
+        $variety->delete();
+
+        return redirect()->route('admin.varieties.index')->with('success', 'Variedad eliminada con éxito');
     }
 }

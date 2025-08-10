@@ -102,7 +102,7 @@ class PalletController extends Controller
      */
     public function edit(Pallet $pallet)
     {
-        $varieties = Variety::all();
+        $varieties = Variety::all()->whereNull('deleted_at');
         $fields = Field::all();
         return view('pallets.edit')->with(['pallet'=>$pallet, 'varieties'=>$varieties,'fields'=>$fields]);
     }
