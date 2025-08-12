@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ExporterController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PalletController;
 use App\Http\Controllers\ProfileController;
@@ -54,6 +55,15 @@ Route::middleware('auth')->group(function () {
     Route::post('admin/varieties',[VarietyController::class,'store'])->name('admin.varieties.store');
     Route::put('admin/varieties/update/{variety}',[VarietyController::class,'update'])->name('admin.varieties.update');
     Route::delete('admin/varieties/delete/{variety}',[VarietyController::class,'destroy'])->name('admin.varieties.destroy');
+
+
+    Route::get('admin/exporters',[ExporterController::class,'index'])->name('admin.exporters.index');
+    Route::get('admin/exporters/show/{exporter}',[ExporterController::class,'show'])->name('admin.exporters.show');
+    Route::get('admin/exporters/create',[ExporterController::class,'create'])->name('admin.exporters.create');
+    Route::get('admin/exporters/edit/{exporter}',[ExporterController::class,'edit'])->name('admin.exporters.edit');
+    Route::post('admin/exporters',[ExporterController::class,'store'])->name('admin.exporters.store');
+    Route::put('admin/exporters/update/{exporter}',[ExporterController::class,'update'])->name('admin.exporters.update');
+    Route::delete('admin/exporters/delete/{exporter}',[ExporterController::class,'destroy'])->name('admin.exporters.destroy');
 
     Route::get('admin/fields/create',[VarietyController::class,'create'])->name('admin.fields.create');
 });
