@@ -12,7 +12,7 @@ class DestinationController extends Controller
      */
     public function index()
     {
-        //
+        return view('destinations.index')->with(['destinations' => Destination::whereNull('deleted_at')->get()]);
     }
 
     /**
@@ -20,7 +20,7 @@ class DestinationController extends Controller
      */
     public function create()
     {
-        //
+        return view('destinations.create');
     }
 
     /**
@@ -28,7 +28,14 @@ class DestinationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+
+        ]);
+
+        Destination::create($request->all());
+
+        return redirect()->route('admin.destinations.index')->with('success', 'Destination created successfully.');
     }
 
     /**
@@ -36,7 +43,7 @@ class DestinationController extends Controller
      */
     public function show(Destination $destination)
     {
-        //
+        return view('destinations.show')->with('destination', $destination);
     }
 
     /**
@@ -44,7 +51,7 @@ class DestinationController extends Controller
      */
     public function edit(Destination $destination)
     {
-        //
+        return view('destinations.edit')->with('destination', $destination);
     }
 
     /**
@@ -52,7 +59,13 @@ class DestinationController extends Controller
      */
     public function update(Request $request, Destination $destination)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $destination->update($request->all());
+
+        return redirect()->route('admin.destinations.index')->with('success', 'Destination updated successfully.');
     }
 
     /**
@@ -60,6 +73,8 @@ class DestinationController extends Controller
      */
     public function destroy(Destination $destination)
     {
-        //
+        $destination->delete();
+
+        return redirect()->route('admin.destinations.index')->with('success', 'Destination deleted successfully.');
     }
 }

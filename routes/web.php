@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\ExporterController;
+use App\Http\Controllers\FieldController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PalletController;
 use App\Http\Controllers\ProfileController;
@@ -65,7 +67,23 @@ Route::middleware('auth')->group(function () {
     Route::put('admin/exporters/update/{exporter}',[ExporterController::class,'update'])->name('admin.exporters.update');
     Route::delete('admin/exporters/delete/{exporter}',[ExporterController::class,'destroy'])->name('admin.exporters.destroy');
 
-    Route::get('admin/fields/create',[VarietyController::class,'create'])->name('admin.fields.create');
+    Route::get('admin/destinations',[DestinationController::class,'index'])->name('admin.destinations.index');
+    Route::get('admin/destinations/show/{destination}',[DestinationController::class,'show'])->name('admin.destinations.show');
+    Route::get('admin/destinations/create',[DestinationController::class,'create'])->name('admin.destinations.create');
+    Route::get('admin/destinations/edit/{destination}',[DestinationController::class,'edit'])->name('admin.destinations.edit');
+    Route::post('admin/destinations',[DestinationController::class,'store'])->name('admin.destinations.store');
+    Route::put('admin/destinations/update/{destination}',[DestinationController::class,'update'])->name('admin.destinations.update');
+    Route::delete('admin/destinations/delete/{destination}',[DestinationController::class,'destroy'])->name('admin.destinations.destroy');
+
+    Route::get('admin/fields',[FieldController::class,'index'])->name('admin.fields.index');
+    Route::get('admin/fields/show/{field}',[FieldController::class,'show'])->name('admin.fields.show');
+    Route::get('admin/fields/create',[FieldController::class,'create'])->name('admin.fields.create');
+    Route::get('admin/fields/edit/{field}',[FieldController::class,'edit'])->name('admin.fields.edit');
+    Route::post('admin/fields',[FieldController::class,'store'])->name('admin.fields.store');
+    Route::put('admin/fields/update/{field}',[FieldController::class,'update'])->name('admin.fields.update');
+    Route::delete('admin/fields/delete/{field}',[FieldController::class,'destroy'])->name('admin.fields.destroy');
+
+    // Route::get('admin/fields/create',[VarietyController::class,'create'])->name('admin.fields.create');
 });
 
 require __DIR__.'/auth.php';

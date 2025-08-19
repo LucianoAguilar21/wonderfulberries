@@ -12,7 +12,7 @@ class FieldController extends Controller
      */
     public function index()
     {
-        //
+        return view('fields.index')->with(['fields' => Field::whereNull('deleted_at')->get()]);
     }
 
     /**
@@ -20,7 +20,7 @@ class FieldController extends Controller
      */
     public function create()
     {
-        //
+        return view('fields.create');
     }
 
     /**
@@ -28,7 +28,15 @@ class FieldController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'field_number' => 'required|integer|unique:fields,field_number',
+            'name' => 'required|string|max:255|unique:fields,name',
+        ]);
+
+
+
+        Field::create($request->all());
+        return redirect()->route('admin.fields.index')->with('success', 'Field created successfully.');
     }
 
     /**
@@ -36,7 +44,7 @@ class FieldController extends Controller
      */
     public function show(Field $field)
     {
-        //
+        return view('fields.show')->with('field', $field);
     }
 
     /**
@@ -44,7 +52,7 @@ class FieldController extends Controller
      */
     public function edit(Field $field)
     {
-        //
+        return view('fields.edit')->with('field', $field);
     }
 
     /**
@@ -52,7 +60,13 @@ class FieldController extends Controller
      */
     public function update(Request $request, Field $field)
     {
-        //
+        $validated = $request->validate([
+            'field_number' => 'required|integer|unique:fields,field_number,' . $field->id,
+            'name' => 'required|string|max:255|unique:fields,name,' . $field->id
+        ]);
+
+        $field->update($validated);
+        return redirect()->route('admin.fields.index')->with('success', 'Field updated successfully.');
     }
 
     /**
@@ -60,6 +74,8 @@ class FieldController extends Controller
      */
     public function destroy(Field $field)
     {
-        //
+        $field->delete();
+
+        return redirect()->route('admin.fields.index')->with('success', 'Field deleted successfully.');
     }
 }
